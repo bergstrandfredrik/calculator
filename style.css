@@ -26,9 +26,11 @@ h1 {
 .calculator-display {
   background-color: rgb(64, 61, 61);
   color: white;
+  width: 230px;
   padding: 13px;
   font-size: 32px;
   margin-bottom: 12px;
+  text-align: end;
 }
 
 .calculator-buttons {
@@ -41,4 +43,5 @@ h1 {
 .calculator-buttons button {
   height: 50px;
   width: 50px;
+  font-size: 30px;
 }
