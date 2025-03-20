@@ -13,7 +13,14 @@ display.textContent = sum;
 
 const buttons = document.querySelectorAll(".calc-btn");
 buttons.forEach((btn) =>
-  btn.addEventListener("click", (e) => changeDisplay(e, display))
+  btn.addEventListener("click", (e) => setNumber(e, display))
+);
+
+const operateBtns = document.querySelectorAll(".operate-btn");
+
+console.log(operateBtns);
+operateBtns.forEach((opBtn) =>
+  opBtn.addEventListener("click", (e) => setOperator(e, display))
 );
 
 const enterBtn = document
@@ -25,10 +32,8 @@ const clearBtn = document
   .addEventListener("click", () => clearDisplay(display));
 
 function getSum(display) {
-  console.log("hejsan");
-  if (a === "") return;
+  if (b === "") return;
 
-  console.log("hej");
   sum = operate(a, b, operator);
 
   display.textContent = sum;
@@ -45,29 +50,34 @@ function clearDisplay(display, clearSum = true) {
   }
 }
 
-function changeDisplay(e, display) {
-  let isNr = e.target.id;
-  console.log(!parseInt(isNr));
-  if ((sum === 0 && !parseInt(isNr)) || sum.length == 11) return;
-  if (
-    (operator === "" && parseInt(isNr)) ||
-    (operator === "" && isNr === "0")
-  ) {
-    a = parseInt(`${a}${isNr}`);
+function setNumber(e, display) {
+  if (!Boolean(operator)) {
+    a = parseInt(`${a}${e.target.id}`);
     sum = a;
-    display.textContent = sum;
-  } else if (!parseInt(isNr) && operator === "") {
+  } else {
+    b = parseInt(`${b}${e.target.id}`);
+    sum = `${sum}${b}`;
+  }
+  display.textContent = sum;
+}
+
+function setOperator(e, display) {
+  console.log(a);
+  console.log(b);
+  console.log(!isNaN(a));
+  console.log(!isNaN(b));
+  if (Boolean(operator) && !isNaN(b)) {
+    let value = operate(a, b, operator);
+    operator = e.target.id;
+    sum = `${value}${operator}`;
+    a = value;
+    b = "";
+  } else {
+    a = Number.parseInt(a) ? a : 0;
     operator = e.target.id;
     sum = `${a}${operator}`;
-    display.textContent = sum;
-  } else if (parseInt(isNr) || (b !== "" && isNr === "0")) {
-    b = parseInt(`${b}${e.target.id}`);
-    sum = `${a}${operator}${b}`;
-    display.textContent = sum;
   }
-  console.log("a: " + a);
-  console.log("operator: " + operator);
-  console.log("b: " + b);
+  display.textContent = sum;
 }
 
 function operate(a, b, operator) {
@@ -99,8 +109,9 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
-  if (b === 0) return "You bastard! Trying to break me EEEeeeeyyy!!!.......";
-  return a / b;
+  if (b === 0) return "don't break me!";
+  let divSum = a / b;
+  return divSum.toFixed(2);
 }
 
 console.log(operate(2, 5, "+"));
