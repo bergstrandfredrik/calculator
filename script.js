@@ -62,10 +62,6 @@ function setNumber(e, display) {
 }
 
 function setOperator(e, display) {
-  console.log(a);
-  console.log(b);
-  console.log(!isNaN(a));
-  console.log(!isNaN(b));
   if (Boolean(operator) && !isNaN(b)) {
     let value = operate(a, b, operator);
     operator = e.target.id;
@@ -113,9 +109,3 @@ function divide(a, b) {
   let divSum = a / b;
   return divSum.toFixed(2);
 }
-
-console.log(operate(2, 5, "+"));
-console.log(operate(2, 5, "-"));
-console.log(operate(2, 5, "*"));
-console.log(operate(2, 5, "/"));
-console.log(operate(2, 0, "/"));
